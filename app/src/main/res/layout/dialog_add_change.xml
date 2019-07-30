@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.bb.moneyburndown.viewmodel.ChangeViewModel" />
+
+        <variable
+            name="viewModel"
+            type="com.bb.moneyburndown.viewmodel.ChangeViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/fab_margin"
+        tools:context=".activity.LimitActivity">
+
+        <RadioGroup
+            android:id="@+id/radio_options"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/common_space"
+            android:layout_marginTop="@dimen/common_space"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <RadioButton
+                android:id="@+id/radio_income"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/common_space"
+                android:onClick="@{() -> viewModel.selectOption(ChangeViewModel.OPTION_INCOME)}"
+                android:text="@string/option_income" />
+
+            <RadioButton
+                android:id="@+id/radio_expense"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:onClick="@{() -> viewModel.selectOption(ChangeViewModel.OPTION_INCOME)}"
+                android:text="@string/option_expense" />
+        </RadioGroup>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edit_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/common_space"
+            android:layout_marginTop="@dimen/common_space"
+            android:layout_marginEnd="@dimen/common_space"
+            android:hint="@string/hint_expense_income"
+            android:imeOptions="actionDone"
+            android:inputType="numberSigned"
+            android:text="@={viewModel.change}"
+            app:error="@{viewModel.error}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/radio_options" />
+
+        <Button
+            android:id="@+id/button_ok"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/fab_margin"
+            android:layout_marginEnd="@dimen/common_space"
+            android:onClick="@{() -> viewModel.exit(true)}"
+            android:text="@android:string/ok"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_value" />
+
+        <Button
+            android:id="@+id/button_cancel"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> viewModel.exit(false)}"
+            android:text="@android:string/cancel"
+            app:layout_constraintBottom_toBottomOf="@+id/button_ok"
+            app:layout_constraintEnd_toStartOf="@+id/button_ok"
+            app:layout_constraintTop_toTopOf="@+id/button_ok" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

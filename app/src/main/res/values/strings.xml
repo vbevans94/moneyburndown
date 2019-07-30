@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Money Burndown</string>
+    <string name="action_reset">Reset</string>
+    <string name="hint_expense_income">Expense/income value</string>
+    <string name="hint_enter_money_limit">Your money limit for the period</string>
+    <string name="text_start_date">Start date</string>
+    <string name="text_end_date">End date</string>
+    <string name="message_reset_limit_confirmation">Do you want to reset the burndown chart? All changes will be lost.</string>
+    <string name="title_confirm">Confirm</string>
+    <string name="action_about">About</string>
+    <string name="title_about">About</string>
+    <string name="format_money_left">%d left</string>
+    <string name="option_income">Income</string>
+    <string name="option_expense">Expense</string>
+    <string name="error_required">Required</string>
+</resources>
