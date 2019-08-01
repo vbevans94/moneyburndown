@@ -2,9 +2,9 @@ package com.bb.moneyburndown.model
 
 import java.util.*
 
-class BurndownRepo(private val burndownDao: BurndownDao) {
+open class BurndownRepo(private val burndownDao: BurndownDao) {
 
-    suspend fun resetLimit(limit: Int, start: Date, end: Date) {
+    open suspend fun resetLimit(limit: Int, start: Date, end: Date) {
         burndownDao.resetLimit(Limit(value = limit, start = start.time, end = end.time))
     }
 

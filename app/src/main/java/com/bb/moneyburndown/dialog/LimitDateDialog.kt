@@ -10,10 +10,13 @@ import com.bb.moneyburndown.extensions.fromComponents
 import com.bb.moneyburndown.extensions.myActivity
 import com.bb.moneyburndown.extensions.toCalendar
 import com.bb.moneyburndown.viewmodel.LimitViewModel
+import com.bb.moneyburndown.viewmodel.LimitViewModelFactory
+import org.koin.android.ext.android.inject
 import java.util.*
 
-class DateDialog : DialogFragment() {
+class LimitDateDialog : DialogFragment() {
 
+    private val viewModelFactory: LimitViewModelFactory by inject()
     private lateinit var viewModel: LimitViewModel
 
     private val listener = DatePickerDialog.OnDateSetListener { _: DatePicker, year: Int, month: Int, day: Int ->
@@ -24,7 +27,7 @@ class DateDialog : DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel = myActivity.fragmentsProvider(SetLimitDialog::class.java) [LimitViewModel::class.java]
+        viewModel = myActivity.fragmentsProvider(SetLimitDialog::class.java, viewModelFactory) [LimitViewModel::class.java]
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -48,7 +51,7 @@ class DateDialog : DialogFragment() {
             date: Date,
             minDate: Date,
             maxDate: Date?
-        ): DateDialog = DateDialog().apply {
+        ): LimitDateDialog = LimitDateDialog().apply {
             arguments = Bundle().apply {
                 putSerializable(ARG_DATE, date.toCalendar())
                 putSerializable(ARG_MIN_DATE, minDate.toCalendar())

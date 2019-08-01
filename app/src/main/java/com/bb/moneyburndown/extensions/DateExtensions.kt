@@ -8,6 +8,7 @@ fun Date.toEndOfDay() = Calendar.getInstance().run {
     this.timeInMillis = this@toEndOfDay.time
     this[Calendar.HOUR_OF_DAY] = 23
     this[Calendar.MINUTE] = 59
+    this[Calendar.SECOND] = 0
     Date(timeInMillis)
 }
 

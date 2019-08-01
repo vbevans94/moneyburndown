@@ -1,23 +1,16 @@
 package com.bb.moneyburndown.viewmodel
 
-import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bb.moneyburndown.R
 import com.bb.moneyburndown.model.BurndownRepo
 import com.bb.moneyburndown.view.Exit
 import com.bb.moneyburndown.view.ViewEvent
 import kotlinx.coroutines.launch
-import org.koin.core.KoinComponent
-import org.koin.core.inject
 import java.util.*
 
-class ChangeViewModel : ViewModel(), KoinComponent {
-
-    private val repo: BurndownRepo by inject()
-    private val context: Application by inject()
+class ChangeViewModel(private val repo: BurndownRepo) : ViewModel() {
 
     var change = MutableLiveData<String>().apply { value = "" }
 
@@ -26,13 +19,13 @@ class ChangeViewModel : ViewModel(), KoinComponent {
 
     private var option: Int = OPTION_EXPENSE
 
-    private val _error = MutableLiveData<CharSequence>()
-    val error: LiveData<CharSequence> = _error
+    private val _error = MutableLiveData<Boolean>()
+    val error: LiveData<Boolean> = _error
 
     fun exit(save: Boolean) {
         if (save) {
             if (change.value.isNullOrEmpty()) {
-                _error.value = context.getString(R.string.error_required)
+                _error.value = true
             } else {
                 viewModelScope.launch {
                     var delta = change.value?.toInt() ?: 0

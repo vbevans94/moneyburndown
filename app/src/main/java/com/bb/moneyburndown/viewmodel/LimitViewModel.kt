@@ -1,24 +1,20 @@
 package com.bb.moneyburndown.viewmodel
 
-import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bb.moneyburndown.R
 import com.bb.moneyburndown.extensions.plusDays
 import com.bb.moneyburndown.extensions.toEndOfDay
 import com.bb.moneyburndown.model.BurndownRepo
-import com.bb.moneyburndown.view.*
+import com.bb.moneyburndown.view.Confirm
+import com.bb.moneyburndown.view.Exit
+import com.bb.moneyburndown.view.SelectDate
+import com.bb.moneyburndown.view.ViewEvent
 import kotlinx.coroutines.launch
-import org.koin.core.KoinComponent
-import org.koin.core.inject
 import java.util.*
 
-class LimitViewModel : ViewModel(), KoinComponent {
-
-    private val repo: BurndownRepo by inject()
-    private val context: Application by inject()
+class LimitViewModel(private val repo: BurndownRepo) : ViewModel() {
 
     var startDate = MutableLiveData<Date>().apply {
         value = BurndownRepo.DEFAULT_START
@@ -35,8 +31,8 @@ class LimitViewModel : ViewModel(), KoinComponent {
     private val _eventLiveData = MutableLiveData<ViewEvent>()
     val eventLiveData: LiveData<ViewEvent> = _eventLiveData
 
-    private val _error = MutableLiveData<CharSequence>()
-    val error: LiveData<CharSequence> = _error
+    private val _error = MutableLiveData<Boolean>()
+    val error: LiveData<Boolean> = _error
 
     private var dateType = START_DATE
 
@@ -59,7 +55,7 @@ class LimitViewModel : ViewModel(), KoinComponent {
     fun exit(save: Boolean) {
         if (save) {
             if (limitValue.value.isNullOrEmpty()) {
-                _error.value = context.getString(R.string.error_required)
+                _error.value = true
             } else {
                 _eventLiveData.value = Confirm
             }

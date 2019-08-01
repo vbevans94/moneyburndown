@@ -13,16 +13,19 @@ import com.bb.moneyburndown.R
 import com.bb.moneyburndown.databinding.DialogAddChangeBinding
 import com.bb.moneyburndown.view.Exit
 import com.bb.moneyburndown.viewmodel.ChangeViewModel
+import com.bb.moneyburndown.viewmodel.ChangeViewModelFactory
 import kotlinx.android.synthetic.main.dialog_add_change.*
+import org.koin.android.ext.android.inject
 
 class AddChangeDialog : DialogFragment() {
 
+    private val viewModelFactory: ChangeViewModelFactory by inject()
     private lateinit var viewModel: ChangeViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel = ViewModelProviders.of(this)[ChangeViewModel::class.java]
+        viewModel = ViewModelProviders.of(this, viewModelFactory)[ChangeViewModel::class.java]
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

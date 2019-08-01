@@ -4,20 +4,22 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
-import androidx.lifecycle.ViewModelProviders
 import com.bb.moneyburndown.R
 import com.bb.moneyburndown.extensions.fragmentsProvider
 import com.bb.moneyburndown.extensions.myActivity
 import com.bb.moneyburndown.viewmodel.LimitViewModel
+import com.bb.moneyburndown.viewmodel.LimitViewModelFactory
+import org.koin.android.ext.android.inject
 
 class ResetConfirmDialog : DialogFragment() {
 
+    private val viewModelFactory: LimitViewModelFactory by inject()
     private lateinit var viewModel: LimitViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel = myActivity.fragmentsProvider(SetLimitDialog::class.java) [LimitViewModel::class.java]
+        viewModel = myActivity.fragmentsProvider(SetLimitDialog::class.java, viewModelFactory) [LimitViewModel::class.java]
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

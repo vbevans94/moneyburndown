@@ -58,6 +58,11 @@ class BurndownView @JvmOverloads constructor(
             invalidate()
         }
 
+    fun update() {
+        now = Date()
+        invalidate()
+    }
+
     private fun generateDayCaptions() {
         dayCaptions.clear()
         var currentDate = start
