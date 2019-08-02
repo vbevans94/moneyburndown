@@ -98,7 +98,7 @@ class LimitViewModelTest {
 
     @Test
     fun confirmSave_yes() = runBlocking{
-        whenever(mockRepo.resetLimit(anyInt(), any(), any())).thenReturn(exit_emptyValue())
+        whenever(mockRepo.resetLimit(anyInt(), any(), any())).thenReturn(Unit)
 
         val limit = "123"
         viewModel.limitValue.value = limit

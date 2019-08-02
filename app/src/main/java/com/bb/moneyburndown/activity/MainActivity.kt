@@ -15,15 +15,18 @@ import com.bb.moneyburndown.view.About
 import com.bb.moneyburndown.view.AddChange
 import com.bb.moneyburndown.view.SetLimit
 import com.bb.moneyburndown.viewmodel.BurndownViewModel
+import com.bb.moneyburndown.viewmodel.BurndownViewModelFactory
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
 
+    private val viewModelFactory: BurndownViewModelFactory by inject()
     private lateinit var viewModel: BurndownViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProviders.of(this)[BurndownViewModel::class.java]
+        viewModel = ViewModelProviders.of(this, viewModelFactory)[BurndownViewModel::class.java]
         val binding = ActivityMainBinding.inflate(layoutInflater)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this

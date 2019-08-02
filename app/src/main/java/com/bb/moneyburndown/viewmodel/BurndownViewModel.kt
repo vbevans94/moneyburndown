@@ -1,6 +1,9 @@
 package com.bb.moneyburndown.viewmodel
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import com.bb.moneyburndown.model.BurndownRepo
 import com.bb.moneyburndown.model.Change
 import com.bb.moneyburndown.model.Limit
@@ -8,12 +11,8 @@ import com.bb.moneyburndown.view.About
 import com.bb.moneyburndown.view.AddChange
 import com.bb.moneyburndown.view.SetLimit
 import com.bb.moneyburndown.view.ViewEvent
-import org.koin.core.KoinComponent
-import org.koin.core.inject
 
-class BurndownViewModel : ViewModel(), KoinComponent {
-
-    private val repo: BurndownRepo by inject()
+class BurndownViewModel(private val repo: BurndownRepo) : ViewModel() {
 
     private val _eventLiveData = MutableLiveData<ViewEvent>()
     val eventLiveData: LiveData<ViewEvent> = _eventLiveData
@@ -21,7 +20,7 @@ class BurndownViewModel : ViewModel(), KoinComponent {
     private val _limit = MutableLiveData<Limit>().apply {
         value = Limit()
     }
-    val limit = _limit
+    val limit: LiveData<Limit> = _limit
 
     private val limitObserver = Observer<Limit> {
         if (it == null) {
@@ -57,6 +56,9 @@ class BurndownViewModel : ViewModel(), KoinComponent {
         var total = limit.value?.value ?: BurndownRepo.DEFAULT_LIMIT
         changes.value?.forEach {
             total -= it.value
+        }
+        if (total < 0) {
+            total = 0
         }
         _moneyLeft.value = total
     }

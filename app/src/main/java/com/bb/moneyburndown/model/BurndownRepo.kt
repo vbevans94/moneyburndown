@@ -8,13 +8,13 @@ open class BurndownRepo(private val burndownDao: BurndownDao) {
         burndownDao.resetLimit(Limit(value = limit, start = start.time, end = end.time))
     }
 
-    suspend fun addChange(change: Int, date: Date) {
+    open suspend fun addChange(change: Int, date: Date) {
         burndownDao.insertChange(Change(value = change, date = date.time))
     }
 
-    fun getChanges() = burndownDao.getChanges()
+    open fun getChanges() = burndownDao.getChanges()
 
-    fun getLimit() = burndownDao.getLimit()
+    open fun getLimit() = burndownDao.getLimit()
 
     companion object {
         val DEFAULT_START = Date()
