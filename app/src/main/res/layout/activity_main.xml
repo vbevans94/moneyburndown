@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.bb.moneyburndown.viewmodel.BurndownViewModel" />
+            type="com.moneyburndown.viewmodel.BurndownViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -37,7 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <com.bb.moneyburndown.view.BurndownView
+                <com.moneyburndown.view.BurndownView
                     android:id="@+id/burndown_view"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"

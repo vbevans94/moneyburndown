@@ -5,13 +5,13 @@
 
     <data>
 
-        <import type="com.bb.moneyburndown.extensions.DateExtensionsKt" />
+        <import type="com.moneyburndown.extensions.DateExtensionsKt" />
 
-        <import type="com.bb.moneyburndown.viewmodel.LimitViewModel" />
+        <import type="com.moneyburndown.viewmodel.LimitViewModel" />
 
         <variable
             name="viewModel"
-            type="com.bb.moneyburndown.viewmodel.LimitViewModel" />
+            type="com.moneyburndown.viewmodel.LimitViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

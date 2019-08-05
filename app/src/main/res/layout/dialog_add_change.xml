@@ -5,11 +5,11 @@
 
     <data>
 
-        <import type="com.bb.moneyburndown.viewmodel.ChangeViewModel" />
+        <import type="com.moneyburndown.viewmodel.ChangeViewModel" />
 
         <variable
             name="viewModel"
-            type="com.bb.moneyburndown.viewmodel.ChangeViewModel" />
+            type="com.moneyburndown.viewmodel.ChangeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
