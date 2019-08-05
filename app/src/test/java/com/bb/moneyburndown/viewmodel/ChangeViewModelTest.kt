@@ -3,14 +3,9 @@ package com.bb.moneyburndown.viewmodel
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.bb.moneyburndown.model.BurndownRepo
 import com.bb.moneyburndown.view.Exit
-import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.whenever
 import com.nhaarman.mockitokotlin2.*
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.setMain
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
@@ -20,7 +15,7 @@ import org.mockito.ArgumentMatchers.anyInt
 class ChangeViewModelTest {
 
     @get:Rule
-    val rule = InstantTaskExecutorRule()
+    val liveDataRule = InstantTaskExecutorRule()
 
     private val mockRepo = mock<BurndownRepo>()
     private lateinit var viewModel: ChangeViewModel
@@ -29,7 +24,6 @@ class ChangeViewModelTest {
     @Before
     fun setUp() {
         viewModel = ChangeViewModel(mockRepo)
-        Dispatchers.setMain(Dispatchers.Unconfined)
     }
 
     @Test

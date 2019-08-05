@@ -1,35 +1,27 @@
 package com.bb.moneyburndown.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.bb.moneyburndown.model.BurndownRepo
 import com.bb.moneyburndown.model.Change
 import com.bb.moneyburndown.model.Limit
 import com.bb.moneyburndown.view.About
 import com.bb.moneyburndown.view.AddChange
-import com.bb.moneyburndown.view.Exit
 import com.bb.moneyburndown.view.SetLimit
-import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.whenever
-import com.nhaarman.mockitokotlin2.*
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.setMain
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.mockito.ArgumentMatchers.anyInt
 import java.util.*
 
 class BurndownViewModelTest {
 
     @get:Rule
-    val rule = InstantTaskExecutorRule()
+    val liveDataRule = InstantTaskExecutorRule()
 
     private val mockRepo = mock<BurndownRepo>()
     private lateinit var viewModel: BurndownViewModel
@@ -42,7 +34,6 @@ class BurndownViewModelTest {
         whenever(mockRepo.getChanges()).thenReturn(testChangesLiveData)
         whenever(mockRepo.getLimit()).thenReturn(testLimitLiveData)
         viewModel = BurndownViewModel(mockRepo)
-        Dispatchers.setMain(Dispatchers.Unconfined)
     }
 
     @Test

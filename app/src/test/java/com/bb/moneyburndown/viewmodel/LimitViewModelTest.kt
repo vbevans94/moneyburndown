@@ -22,7 +22,7 @@ import java.util.*
 class LimitViewModelTest {
 
     @get:Rule
-    val rule = InstantTaskExecutorRule()
+    val liveDataRule = InstantTaskExecutorRule()
 
     private val mockRepo = mock<BurndownRepo>()
     private lateinit var viewModel: LimitViewModel
