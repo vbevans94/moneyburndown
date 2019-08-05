@@ -1,5 +1,6 @@
 package com.moneyburndown.model
 
+import com.moneyburndown.extensions.toStartOfDay
 import java.util.*
 
 open class BurndownRepo(private val burndownDao: BurndownDao) {
@@ -17,7 +18,7 @@ open class BurndownRepo(private val burndownDao: BurndownDao) {
     open fun getLimit() = burndownDao.getLimit()
 
     companion object {
-        val DEFAULT_START = Date()
+        val DEFAULT_START = Date().toStartOfDay()
 
         const val DEFAULT_DAYS = 30
 

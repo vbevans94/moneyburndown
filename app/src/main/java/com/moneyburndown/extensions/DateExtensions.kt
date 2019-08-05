@@ -12,6 +12,14 @@ fun Date.toEndOfDay() = Calendar.getInstance().run {
     Date(timeInMillis)
 }
 
+fun Date.toStartOfDay() = Calendar.getInstance().run {
+    this.timeInMillis = this@toStartOfDay.time
+    this[Calendar.HOUR_OF_DAY] = 0
+    this[Calendar.MINUTE] = 0
+    this[Calendar.SECOND] = 0
+    Date(timeInMillis)
+}
+
 fun Date.plusDays(days: Int): Date {
     return Date(time + TimeUnit.DAYS.toMillis(days.toLong()))
 }
