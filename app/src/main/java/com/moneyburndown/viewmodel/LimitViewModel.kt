@@ -16,12 +16,8 @@ import java.util.*
 
 class LimitViewModel(private val repo: BurndownRepo) : ViewModel() {
 
-    var startDate = MutableLiveData<Date>().apply {
-        value = BurndownRepo.DEFAULT_START
-    }
-
     var endDate = MutableLiveData<Date>().apply {
-        value = BurndownRepo.DEFAULT_START.plusDays(BurndownRepo.DEFAULT_DAYS)
+        value = BurndownRepo.startDate().plusDays(BurndownRepo.DEFAULT_DAYS)
     }
 
     var limitValue = MutableLiveData<String>().apply {
@@ -34,22 +30,15 @@ class LimitViewModel(private val repo: BurndownRepo) : ViewModel() {
     private val _error = MutableLiveData<Boolean>()
     val error: LiveData<Boolean> = _error
 
-    private var dateType = START_DATE
-
-    fun selectDate(type: Int) {
-        dateType = type
-        val date = if (type == START_DATE) startDate else endDate
-        val minDate = if (type == START_DATE) Date() else startDate.value!!
-        val maxDate = if (type == START_DATE) endDate.value else null
+    fun selectEndDate() {
+        val date = endDate
+        val minDate = BurndownRepo.startDate()
+        val maxDate = null
         _eventLiveData.value = SelectDate(date.value!!, minDate, maxDate)
     }
 
     fun onDateSelected(date: Date) {
-        if (dateType == START_DATE) {
-            startDate.value = date
-        } else {
-            endDate.value = date.toEndOfDay()
-        }
+        endDate.value = date.toEndOfDay()
     }
 
     fun exit(save: Boolean) {
@@ -67,17 +56,12 @@ class LimitViewModel(private val repo: BurndownRepo) : ViewModel() {
     fun confirmSave(confirm: Boolean) {
         if (confirm) {
             viewModelScope.launch {
-                repo.resetLimit(limitValue.value?.toInt() ?: 0, startDate.value ?: Date(), endDate.value ?: Date())
+                repo.resetLimit(limitValue.value?.toInt() ?: 0, BurndownRepo.startDate(), endDate.value ?: Date())
 
                 _eventLiveData.value = Exit
             }
         } else {
             _eventLiveData.value = Exit
         }
-    }
-
-    companion object {
-        const val START_DATE = 0
-        const val END_DATE = 1
     }
 }

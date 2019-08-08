@@ -18,7 +18,7 @@ open class BurndownRepo(private val burndownDao: BurndownDao) {
     open fun getLimit() = burndownDao.getLimit()
 
     companion object {
-        val DEFAULT_START = Date().toStartOfDay()
+        fun startDate() = Date().toStartOfDay()
 
         const val DEFAULT_DAYS = 30
 

@@ -2,6 +2,8 @@ package com.moneyburndown.viewmodel
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.moneyburndown.extensions.plusDays
+import com.moneyburndown.extensions.toEndOfDay
+import com.moneyburndown.extensions.toStartOfDay
 import com.moneyburndown.model.BurndownRepo
 import com.moneyburndown.view.Confirm
 import com.moneyburndown.view.Exit
@@ -36,24 +38,14 @@ class LimitViewModelTest {
 
     @Test
     fun selectDate_triggered() {
-        viewModel.selectDate(LimitViewModel.START_DATE)
+        viewModel.selectEndDate()
 
         assertTrue(viewModel.eventLiveData.value is SelectDate)
     }
 
     @Test
     fun onDateSelected_corrected() {
-        viewModel.selectDate(LimitViewModel.START_DATE)
-
         val date = Date()
-
-        viewModel.onDateSelected(date)
-
-        assertEquals(date, viewModel.startDate.value)
-
-        // correct end to the end of the day
-        viewModel.selectDate(LimitViewModel.END_DATE)
-
         viewModel.onDateSelected(date)
 
         val endOfDay = Calendar.getInstance().run {
@@ -61,6 +53,7 @@ class LimitViewModelTest {
             this[Calendar.HOUR_OF_DAY] = 23
             this[Calendar.MINUTE] = 59
             this[Calendar.SECOND] = 0
+            this[Calendar.MILLISECOND] = 0
             Date(timeInMillis)
         }
         assertEquals(endOfDay, viewModel.endDate.value)
@@ -103,13 +96,12 @@ class LimitViewModelTest {
         val limit = "123"
         viewModel.limitValue.value = limit
         val start = Date()
-        viewModel.startDate.value = start
         val end = start.plusDays(1)
-        viewModel.endDate.value = end
+        viewModel.onDateSelected(end)
 
         viewModel.confirmSave(true)
 
         assertTrue(viewModel.eventLiveData.value == Exit)
-        verify(mockRepo).resetLimit(eq(limit.toInt()), eq(start), eq(end))
+        verify(mockRepo).resetLimit(eq(limit.toInt()), eq(start.toStartOfDay()), eq(end.toEndOfDay()))
     }
 }

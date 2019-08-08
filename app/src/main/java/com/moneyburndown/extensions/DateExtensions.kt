@@ -9,6 +9,7 @@ fun Date.toEndOfDay() = Calendar.getInstance().run {
     this[Calendar.HOUR_OF_DAY] = 23
     this[Calendar.MINUTE] = 59
     this[Calendar.SECOND] = 0
+    this[Calendar.MILLISECOND] = 0
     Date(timeInMillis)
 }
 
@@ -17,6 +18,7 @@ fun Date.toStartOfDay() = Calendar.getInstance().run {
     this[Calendar.HOUR_OF_DAY] = 0
     this[Calendar.MINUTE] = 0
     this[Calendar.SECOND] = 0
+    this[Calendar.MILLISECOND] = 0
     Date(timeInMillis)
 }
 

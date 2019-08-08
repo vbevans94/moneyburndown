@@ -9,6 +9,7 @@ import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.moneyburndown.R
 import com.moneyburndown.databinding.DialogAddChangeBinding
 import com.moneyburndown.view.Exit
@@ -17,7 +18,7 @@ import com.moneyburndown.viewmodel.ChangeViewModelFactory
 import kotlinx.android.synthetic.main.dialog_add_change.*
 import org.koin.android.ext.android.inject
 
-class AddChangeDialog : DialogFragment() {
+class AddChangeDialog : BottomSheetDialogFragment() {
 
     private val viewModelFactory: ChangeViewModelFactory by inject()
     private lateinit var viewModel: ChangeViewModel

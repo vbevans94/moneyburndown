@@ -42,6 +42,7 @@ class BurndownView @JvmOverloads constructor(
     var limit: Limit = Limit()
         set(value) {
             field = value
+            now = Date()
             start = Date(limit.start)
             end = Date(limit.end)
             values = arrayOf("0", (limit.value / 2).toSmallString(), limit.value.toSmallString())

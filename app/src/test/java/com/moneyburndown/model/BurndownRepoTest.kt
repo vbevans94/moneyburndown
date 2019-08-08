@@ -1,6 +1,7 @@
 package com.moneyburndown.model
 
 import androidx.lifecycle.MutableLiveData
+import com.moneyburndown.extensions.toStartOfDay
 import com.nhaarman.mockitokotlin2.eq
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
@@ -54,5 +55,10 @@ class BurndownRepoTest {
     @Test
     fun getChanges() {
         assertEquals(testChangesLiveData, burndownRepo.getChanges())
+    }
+
+    @Test
+    fun startDate() {
+        assertEquals(Date().toStartOfDay(), BurndownRepo.startDate())
     }
 }

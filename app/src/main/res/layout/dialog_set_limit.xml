@@ -33,41 +33,14 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/text_start_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/common_space"
-            android:text="@string/text_start_date"
-            app:layout_constraintBottom_toBottomOf="@+id/button_start_date"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/button_start_date" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button_start_date"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/common_space"
-            android:layout_marginTop="@dimen/common_space"
-            android:layout_marginEnd="@dimen/common_space"
-            android:onClick="@{() -> viewModel.selectDate(LimitViewModel.START_DATE)}"
-            android:text="@{DateExtensionsKt.fullDate(viewModel.startDate)}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/edit_limit"
-            tools:text="14 Jun 2019" />
-
-        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/text_end_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/common_space"
-            android:layout_marginTop="@dimen/common_space"
-            android:layout_marginBottom="@dimen/common_space"
             android:text="@string/text_end_date"
             app:layout_constraintBottom_toBottomOf="@+id/button_end_date"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_start_date" />
+            app:layout_constraintTop_toTopOf="@+id/button_end_date" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_end_date"
@@ -77,11 +50,11 @@
             android:layout_marginStart="@dimen/common_space"
             android:layout_marginTop="@dimen/common_space"
             android:layout_marginEnd="@dimen/common_space"
-            android:onClick="@{() -> viewModel.selectDate(LimitViewModel.END_DATE)}"
+            android:onClick="@{() -> viewModel.selectEndDate()}"
             android:text="@{DateExtensionsKt.fullDate(viewModel.endDate)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/button_start_date"
+            app:layout_constraintTop_toBottomOf="@+id/edit_limit"
             tools:text="8 Jul 2019" />
 
         <androidx.constraintlayout.widget.Guideline

@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.moneyburndown.R
 import com.moneyburndown.databinding.DialogSetLimitBinding
 import com.moneyburndown.view.Confirm
@@ -16,7 +16,7 @@ import com.moneyburndown.viewmodel.LimitViewModel
 import com.moneyburndown.viewmodel.LimitViewModelFactory
 import org.koin.android.ext.android.inject
 
-class SetLimitDialog : DialogFragment() {
+class SetLimitDialog : BottomSheetDialogFragment() {
 
     private val viewModelFactory: LimitViewModelFactory by inject()
 
