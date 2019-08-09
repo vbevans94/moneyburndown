@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
+import android.view.inputmethod.EditorInfo
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -14,6 +16,7 @@ import com.moneyburndown.view.Exit
 import com.moneyburndown.view.SelectDate
 import com.moneyburndown.viewmodel.LimitViewModel
 import com.moneyburndown.viewmodel.LimitViewModelFactory
+import kotlinx.android.synthetic.main.dialog_set_limit.*
 import org.koin.android.ext.android.inject
 
 class SetLimitDialog : BottomSheetDialogFragment() {
@@ -42,10 +45,26 @@ class SetLimitDialog : BottomSheetDialogFragment() {
         viewModel.eventLiveData.observe(viewLifecycleOwner, Observer {
             when (it) {
                 is SelectDate -> LimitDateDialog.create(it.date, it.minDate, it.maxDate)
-                    .show(activity?.supportFragmentManager, LimitDateDialog::class.java.simpleName)
+                    .show(activity?.supportFragmentManager!!, LimitDateDialog::class.java.simpleName)
                 Exit -> dismiss()
-                Confirm -> ResetConfirmDialog().show(fragmentManager, ResetConfirmDialog::class.java.simpleName)
+                Confirm -> ResetConfirmDialog().show(fragmentManager!!, ResetConfirmDialog::class.java.simpleName)
             }
         })
+
+        edit_limit.setOnEditorActionListener { _, actionId, _ ->
+            when (actionId) {
+                EditorInfo.IME_ACTION_DONE -> {
+                    viewModel.exit(true)
+                    true
+                }
+                else -> false
+            }
+        }
+
+        edit_limit.setOnFocusChangeListener { _: View, hasFocus: Boolean ->
+            if (hasFocus) {
+                dialog?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
+            }
+        }
     }
 }
